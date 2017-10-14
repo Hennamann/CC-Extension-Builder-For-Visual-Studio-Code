@@ -1,0 +1,49 @@
+{
+    "name": "cc-extension-builder",
+    "displayName": "CC Extension Builder",
+    "description": "A Visual Studio Code Extension that lets you create HTML based extensions for Adobe Creative Cloud applications such as Photoshop, Illustrator and InDesign.",
+    "version": "1.0.0",
+    "publisher": "hennamann",
+    "repository": "https://github.com/Hennamann/CC-Extension-Builder-For-VSCode",
+    "engines": {
+        "vscode": "^1.13.0"
+    },
+    "categories": [
+        "Other"
+    ],
+    "activationEvents": [
+        "onCommand:extension.enableDebugMode",
+        "onCommand:extension.createExtension"
+    ],
+    "main": "./extension",
+    "contributes": {
+        "commands": [
+            {
+                "command": "extension.enableDebugMode",
+                "title": "Enable Debug Mode"
+            },
+            {
+                "command": "extension.createExtension",
+                "title": "Create a new CC Extension"
+            }
+        ]
+    },
+    "scripts": {
+        "postinstall": "node ./node_modules/vscode/bin/install",
+        "test": "node ./node_modules/vscode/bin/test"
+    },
+    "devDependencies": {
+        "typescript": "^2.0.3",
+        "vscode": "^1.0.0",
+        "mocha": "^2.3.3",
+        "eslint": "^3.6.0",
+        "@types/node": "^6.0.40",
+        "@types/mocha": "^2.2.32"
+    },
+    "dependencies": {
+        "async": "^2.5.0",
+        "child-process-es6-promise": "^1.1.0",
+        "event-chains": "0.0.8",
+        "userdir": "^0.1.3"
+    }
+}
