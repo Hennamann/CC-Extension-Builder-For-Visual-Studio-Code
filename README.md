@@ -7,7 +7,7 @@ Tested on Mac, untested on Windows.
 ## Features
 
 - Creates an extension for you based on a premade template.
-- Allows you to enable CEP debug mode inside Visual Studio Code.
+- Allows you to enable and disable CEP debug mode inside Visual Studio Code.
 
 ## Known Issues
 
@@ -16,3 +16,8 @@ Tested on Mac, untested on Windows.
 ### 1.0.0
 
 Initial release of the extension.
+
+### 1.0.1
+
+- Added a disable CEP debug mode command.
+- Added template picker option, to allow the user to choose between the different templates.

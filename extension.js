@@ -13,17 +13,11 @@ var isWin = true;
 // your extension is activated the very first time the command is executed
 function activate(context) {
 
-    // Use the console to output diagnostic information (console.log) and errors (console.error)
-    // This line of code will only be executed once when your extension is activated
     console.log('The CC Extension Builder Extension has been activated.');
 
     isWin = (process.platform != "darwin");
 
-    // The command has been defined in the package.json file
-    // Now provide the implementation of the command with  registerCommand
-    // The commandId parameter must match the command field in package.json
     var disposable = vscode.commands.registerCommand('extension.enableDebugMode', function () {
-        // The code you place here will be executed every time your command is executed
 
         var cmd = "";
         if (isWin) {
@@ -46,8 +40,33 @@ function activate(context) {
             console.log(`child process exited with code ${code}`);
         });
 
-        // Display a message box to the user
-        vscode.window.showInformationMessage('Debug Mode ON');
+        vscode.window.showInformationMessage('CEP Debug Mode Enabled');
+    });
+
+    var disposable = vscode.commands.registerCommand('extension.disableDebugMode', function () {
+
+        var cmd = "";
+        if (isWin) {
+            console.log('Disabling Debug Mode on Windows')
+            cmd = spawn.spawn('cmd.exe', path.join(__dirname, sdkFolderName, "disabledebugmode.bat"));
+        } else {
+            console.log('Disabling Debug Mode on Mac')
+            cmd = spawn.execFile(path.join(__dirname, sdkFolderName, "disabledebugmode.sh"));
+        }
+
+        cmd.stdout.on('data', (data) => {
+            console.log(`stdout: ${data}`);
+        });
+
+        cmd.stderr.on('data', (data) => {
+            console.log(`stderr: ${data}`);
+        });
+
+        cmd.on('close', (code) => {
+            console.log(`child process exited with code ${code}`);
+        });
+
+        vscode.window.showInformationMessage('CEP Debug Mode Disabled');
     });
 
     var disposable = vscode.commands.registerCommand('extension.createExtension', function () {
@@ -70,17 +89,43 @@ function activate(context) {
         }
 
         function getExtensionName() {
+
             vscode.window.showInputBox({
                 prompt: 'Extension Name',
                 value: 'Extension Name'
             }).then(function (value) {
                 extName = value;
+                getExtensionTemplateType();
+            })
+        }
+
+        function getExtensionTemplateType() {
+            vscode.window.showQuickPick([{
+                    label: "basic",
+                    description: "A barebones Hello World extension"
+                },
+                {
+                    label: "topcoat",
+                    description: "An advanced Hello World extension, with extendscript examples and topcoat css included."
+                },
+                {
+                    label: "spectrum",
+                    description: "Identical to the default template, except for for Adobe's spectrum UI instead of topcoat."
+                },
+                {
+                    label: "theme",
+                    description: "Same as default, just without topcoat."
+                }
+            ], {
+                matchOnDescription: true,
+                placeHolder: "Choose a template to use for the extension."
+            }).then(function (choice) {
                 if (isWin) {
                     console.log('Creating a new CC Extension at %programfiles%/Common\ Files/Adobe/CEP/extensions/' + extId)
-                    cmd = spawn.execFile(path.join(__dirname, sdkFolderName, "createext.bat"), ['default', extId]);
+                    cmd = spawn.execFile(path.join(__dirname, sdkFolderName, "createext.bat"), [choice.label, extId]);
                 } else {
                     console.log('Creating a new CC Extension at' + userdir + '/Library/Application\ Support/Adobe/CEP/extensions/' + extId)
-                    cmd = spawn.execFile(path.join(__dirname, sdkFolderName, "createext.sh"), ['default', extId]);
+                    cmd = spawn.execFile(path.join(__dirname, sdkFolderName, "createext.sh"), [choice.label, extId]);
                 }
 
                 cmd.stdout.on('data', (data) => {
@@ -135,7 +180,7 @@ function activate(context) {
 
         function openExt() {
             if (isWin) {
-                vscode.commands.executeCommand('vscode.openFolder', vscode.Uri.file('%programfiles%/Common\ Files/Adobe/CEP/extensions/' + extId), true);
+                vscode.commands.executeCommand('vscode.openFolder', vscode.Uri.file('%programfiles%/Common\ Files/Adobe/CEP/extensions/' + extId), true)
                 vscode.window.showInformationMessage('Extension Created');
             } else {
                 vscode.commands.executeCommand('vscode.openFolder', vscode.Uri.file(userdir + '/Library/Application\ Support/Adobe/CEP/extensions/' + extId), true);
