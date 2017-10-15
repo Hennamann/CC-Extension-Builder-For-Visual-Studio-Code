@@ -121,7 +121,7 @@ function activate(context) {
                 placeHolder: "Choose a template to use for the extension."
             }).then(function (choice) {
                 if (isWin) {
-                    console.log('Creating a new CC Extension at %programfiles%/Common\ Files/Adobe/CEP/extensions/' + extId)
+                    console.log('Creating a new CC Extension at ' + userdir + '/AppData/Roaming/Adobe/CEP/extensions/' + extId)
                     cmd = spawn.execFile(path.join(__dirname, sdkFolderName, "createext.bat"), [choice.label, extId]);
                 } else {
                     console.log('Creating a new CC Extension at' + userdir + '/Library/Application\ Support/Adobe/CEP/extensions/' + extId)
@@ -145,8 +145,8 @@ function activate(context) {
 
         function createExtension() {
             if (isWin) {
-                var manifestFile = path.join('%programfiles%/Common\ Files/Adobe/CEP/extensions/', extId, '/CSXS/manifest.xml');
-                var debugFile = path.join('%programfiles%/Common\ Files/Adobe/CEP/extensions/', extId, '/.debug');
+                var manifestFile = path.join(userdir, '/AppData/Roaming/Adobe/CEP/extensions/', extId, '/CSXS/manifest.xml');
+                var debugFile = path.join(userdir, 'AppData/Roaming/Adobe/CEP/extensions/', extId, '/.debug');
                 editTemplate();
                 console.log('Processing Template...')
             } else {
@@ -180,7 +180,7 @@ function activate(context) {
 
         function openExt() {
             if (isWin) {
-                vscode.commands.executeCommand('vscode.openFolder', vscode.Uri.file('%programfiles%/Common\ Files/Adobe/CEP/extensions/' + extId), true)
+                vscode.commands.executeCommand('vscode.openFolder', vscode.Uri.file(userdir + 'AppData/Roaming/Adobe/CEP/extensions/' + extId), true)
                 vscode.window.showInformationMessage('Extension Created');
             } else {
                 vscode.commands.executeCommand('vscode.openFolder', vscode.Uri.file(userdir + '/Library/Application\ Support/Adobe/CEP/extensions/' + extId), true);
