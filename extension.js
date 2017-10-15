@@ -74,7 +74,7 @@ function activate(context) {
         var extId = "";
         var extName = "";
         var cmd;
-
+        var winDir = "";
         getExtensionID();
 
         function getExtensionID() {
@@ -130,6 +130,7 @@ function activate(context) {
 
                 cmd.stdout.on('data', (data) => {
                     console.log(`stdout: ${data}`);
+                    winDir = data;
                 });
 
                 cmd.stderr.on('data', (data) => {
@@ -145,8 +146,8 @@ function activate(context) {
 
         function createExtension() {
             if (isWin) {
-                var manifestFile = path.join(userdir, '/AppData/Roaming/Adobe/CEP/extensions/', extId, '/CSXS/manifest.xml');
-                var debugFile = path.join(userdir, 'AppData/Roaming/Adobe/CEP/extensions/', extId, '/.debug');
+                var manifestFile = path.join(winDir, '/CSXS/manifest.xml');
+                var debugFile = path.join(winDir, '/.debug');
                 editTemplate();
                 console.log('Processing Template...')
             } else {
@@ -180,7 +181,7 @@ function activate(context) {
 
         function openExt() {
             if (isWin) {
-                vscode.commands.executeCommand('vscode.openFolder', vscode.Uri.file(userdir + 'AppData/Roaming/Adobe/CEP/extensions/' + extId), true)
+                vscode.commands.executeCommand('vscode.openFolder', vscode.Uri.file(winDir), true)
                 vscode.window.showInformationMessage('Extension Created');
             } else {
                 vscode.commands.executeCommand('vscode.openFolder', vscode.Uri.file(userdir + '/Library/Application\ Support/Adobe/CEP/extensions/' + extId), true);
