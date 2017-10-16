@@ -21,3 +21,7 @@ Initial release of the extension.
 
 - Added a disable CEP debug mode command.
 - Added template picker option, to allow the user to choose between the different templates.
+
+## 1.0.2
+- Fixed a lot of Windows issues, Windows now works and has been tested!
+- General performance improvements.
