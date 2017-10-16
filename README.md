@@ -1,8 +1,8 @@
 # CC Extension Builder for Visual Studio Code
 
-This extensions, makes it easier to create HTML5 extensions for Adobe Creative Cloud in Visual Studio Code.
+This extension, makes it easier to create HTML5 extensions for Adobe Creative Cloud in Visual Studio Code.
 
-Tested on Mac, untested on Windows.
+Works on both Mac and Windows!
 
 ## Features
 
@@ -22,6 +22,6 @@ Initial release of the extension.
 - Added a disable CEP debug mode command.
 - Added template picker option, to allow the user to choose between the different templates.
 
-## 1.0.2
+### 1.0.2/1.0.3
 - Fixed a lot of Windows issues, Windows now works and has been tested!
 - General performance improvements.
