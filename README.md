@@ -25,3 +25,8 @@ Initial release of the extension.
 ### 1.0.2/1.0.3
 - Fixed a lot of Windows issues, Windows now works and has been tested!
 - General performance improvements.
+
+### 1.1.0
+- Adds compatibility with CEP 9 and basic compatbility with the upcoming CEP 10.
+- Updated/Removed NPM modules with security vulnerabilities.
+- Code Cleanup
