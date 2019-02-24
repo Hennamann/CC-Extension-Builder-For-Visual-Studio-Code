@@ -74,13 +74,13 @@ function activate(context) {
         var extId = "";
         var extName = "";
         var cmd;
-        
+
         getExtensionID();
 
         function getExtensionID() {
 
             vscode.window.showInputBox({
-                prompt: 'Extension ID, for example com.example.helloworld',
+                prompt: 'Extension ID, for example: com.example.helloworld',
                 value: 'com.example.helloworld'
             }).then(function (value) {
                 extId = value;
@@ -101,46 +101,45 @@ function activate(context) {
 
         function getExtensionTemplateType() {
             vscode.window.showQuickPick([{
-                    label: "basic",
-                    description: "A barebones Hello World extension"
-                },
-                {
-                    label: "topcoat",
-                    description: "An advanced Hello World extension, with extendscript examples and topcoat css included."
-                },
-                {
-                    label: "spectrum",
-                    description: "Identical to the default template, except for for Adobe's spectrum UI instead of topcoat."
-                },
-                {
-                    label: "theme",
-                    description: "Same as default, just without topcoat."
-                }
-            ], {
-                matchOnDescription: true,
-                placeHolder: "Choose a template to use for the extension."
-            }).then(function (choice) {
-                if (isWin) {
-                    console.log('Creating a new CC Extension at ' + userdir + '/AppData/Roaming/Adobe/CEP/extensions/' + extId)
-                    cmd = spawn.execFile(path.join(__dirname, sdkFolderName, "createext.bat"), [choice.label, extId]);
-                } else {
-                    console.log('Creating a new CC Extension at' + userdir + '/Library/Application\ Support/Adobe/CEP/extensions/' + extId)
-                    cmd = spawn.execFile(path.join(__dirname, sdkFolderName, "createext.sh"), [choice.label, extId]);
-                }
+                label: "topcoat",
+                description: "An advanced Hello World extension, with extendscript examples and topcoat css included."
+            },
+            {
+                label: "spectrum",
+                description: "Identical to the default template, except for for Adobe's spectrum UI instead of topcoat."
+            },
+            {
+                label: "theme",
+                description: "Same as topcoat, just without topcoat."
+            },
+            {
+                label: "basic",
+                description: "A barebones Hello World extension (NB No longer recommended)"
+            }], {
+                    matchOnDescription: true,
+                    placeHolder: "Choose a template to use for the extension."
+                }).then(function (choice) {
+                    if (isWin) {
+                        console.log('Creating a new CC Extension at ' + userdir + '/AppData/Roaming/Adobe/CEP/extensions/' + extId)
+                        cmd = spawn.execFile(path.join(__dirname, sdkFolderName, "createext.bat"), [choice.label, extId]);
+                    } else {
+                        console.log('Creating a new CC Extension at' + userdir + '/Library/Application\ Support/Adobe/CEP/extensions/' + extId)
+                        cmd = spawn.execFile(path.join(__dirname, sdkFolderName, "createext.sh"), [choice.label, extId]);
+                    }
 
-                cmd.stdout.on('data', (data) => {
-                    console.log(`stdout: ${data}`);
-                });
+                    cmd.stdout.on('data', (data) => {
+                        console.log(`stdout: ${data}`);
+                    });
 
-                cmd.stderr.on('data', (data) => {
-                    console.log(`stderr: ${data}`);
-                });
+                    cmd.stderr.on('data', (data) => {
+                        console.log(`stderr: ${data}`);
+                    });
 
-                cmd.on('close', (code) => {
-                    console.log(`child process exited with code ${code}`);
-                    createExtension();
-                });
-            })
+                    cmd.on('close', (code) => {
+                        console.log(`child process exited with code ${code}`);
+                        createExtension();
+                    });
+                })
         }
 
         function createExtension() {
@@ -148,13 +147,12 @@ function activate(context) {
                 var manifestFile = path.join(userdir, '/AppData/Roaming/Adobe/CEP/extensions/', extId, '/CSXS/manifest.xml');
                 var debugFile = path.join(userdir, '/AppData/Roaming/Adobe/CEP/extensions/', extId, '/.debug');
                 editTemplate();
-                console.log('Processing Template...')
             } else {
                 var manifestFile = path.join(userdir, '/Library/Application\ Support/Adobe/CEP/extensions/', extId, '/CSXS/manifest.xml');
                 var debugFile = path.join(userdir, '/Library/Application\ Support/Adobe/CEP/extensions/', extId, '/.debug');
                 editTemplate();
-                console.log('Processing Template...')
             }
+            console.log('Processing Template...')
 
             function editTemplate() {
                 editTemplate(manifestFile);
@@ -181,11 +179,10 @@ function activate(context) {
         function openExt() {
             if (isWin) {
                 vscode.commands.executeCommand('vscode.openFolder', vscode.Uri.file(userdir + '/AppData/Roaming/Adobe/CEP/extensions/' + extId + '/'), true)
-                vscode.window.showInformationMessage('Extension Created');
             } else {
                 vscode.commands.executeCommand('vscode.openFolder', vscode.Uri.file(userdir + '/Library/Application\ Support/Adobe/CEP/extensions/' + extId), true);
-                vscode.window.showInformationMessage('Extension Created');
             }
+            vscode.window.showInformationMessage('Extension Created');
         }
     });
     context.subscriptions.push(disposable);
@@ -194,5 +191,5 @@ function activate(context) {
 exports.activate = activate;
 
 // this method is called when your extension is deactivated
-function deactivate() {}
+function deactivate() { }
 exports.deactivate = deactivate;

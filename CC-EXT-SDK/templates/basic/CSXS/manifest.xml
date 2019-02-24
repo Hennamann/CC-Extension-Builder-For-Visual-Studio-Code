@@ -1,51 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ExtensionManifest Version="7.0" ExtensionBundleId="com.example.ext" ExtensionBundleVersion="1.0.0"
+<ExtensionManifest Version="9.0" ExtensionBundleId="com.example.ext" ExtensionBundleVersion="1.0.0"
 		ExtensionBundleName="Extension-Name" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<ExtensionList>
-		<Extension Id="com.example.ext" Version="1.0" />
+		<Extension Id="com.example.ext" Version="1.0.0" />
 	</ExtensionList>
 	<ExecutionEnvironment>
 		<HostList>
             
-            <!-- Uncomment tags according to the apps you want your panel to support -->
+             <!-- Uncomment tags according to the apps you want your panel to support 
+			Make sure to change these tags to use realistic version ranges before releasing your extensions, not 99.9!
+			You may also need to change the CEP version in order to support certain apps. -->
             
             <!-- Photoshop -->
-            <Host Name="PHXS" Version="[15.0,17.9]" />
-            <Host Name="PHSP" Version="[15.0,17.9]" />
+            <Host Name="PHXS" Version="[16.0,99.9]" />
+            <Host Name="PHSP" Version="[16.0,99.9]" />
             
             <!-- Illustrator -->
-            <!-- <Host Name="ILST" Version="[18.0,20.9]" /> -->
+            <!-- <Host Name="ILST" Version="[18.0,99.9]" /> -->
             
             <!-- InDesign -->
-            <!-- <Host Name="IDSN" Version="[10.0,11.9]" /> -->
+            <!-- <Host Name="IDSN" Version="[10.0,99.9]" /> -->
             
              <!-- InCopy -->
-            <!-- <Host Name="AICY" Version="[10.0,11.9]" /> -->  
+            <!-- <Host Name="AICY" Version="[10.0,99.9]" /> -->  
             
             <!-- Premiere -->
-            <!-- <Host Name="PPRO" Version="[8.0,10.9]" /> -->
+            <!-- <Host Name="PPRO" Version="[8.0,99.9]" /> -->
             
             <!-- AfterEffects -->
-            <!-- <Host Name="AEFT" Version="[13.0,13.9]" /> -->
+            <!-- <Host Name="AEFT" Version="[13.0,99.9]" /> -->
             
             <!-- PRELUDE -->            
-            <!-- <Host Name="PRLD" Version="[3.0,5.9]" />   -->
+            <!-- <Host Name="PRLD" Version="[3.0,99.9]" />   -->
             
             <!-- Animate -->
-            <!-- <Host Name="FLPR" Version="[14.0,15.9]" /> -->
+            <!-- <Host Name="FLPR" Version="[14.0,99.9]" /> -->
             
             <!-- Audition -->
-            <!-- <Host Name="AUDT" Version="[8.0,8.9]" /> -->
+            <!-- <Host Name="AUDT" Version="[8.0,99.9]" /> -->
             
             <!-- Dreamweaver -->
-            <!-- <Host Name="DRWV" Version="[16.0,16.9]" /> -->
+            <!-- <Host Name="DRWV" Version="[16.0,99.9]" /> -->
             
 		</HostList>
 		<LocaleList>
 			<Locale Code="All" />
 		</LocaleList>
 		<RequiredRuntimeList>
-			<RequiredRuntime Name="CSXS" Version="7.0" />
+			<RequiredRuntime Name="CSXS" Version="9.0" />
 		</RequiredRuntimeList>
 	</ExecutionEnvironment>
 	<DispatchInfoList>
