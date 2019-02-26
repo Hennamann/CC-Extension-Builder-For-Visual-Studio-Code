@@ -30,3 +30,6 @@ Initial release of the extension.
 - Adds compatibility with CEP 9 and basic compatbility with the upcoming CEP 10.
 - Updated/Removed NPM modules with security vulnerabilities.
 - Code Cleanup
+
+### 1.1.2
+- Adds prefixes to the commands in order to distinquish them from other commands. (See Issue #5)
